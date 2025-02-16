@@ -1,5 +1,5 @@
 import psycopg2
-import numpy
+import numpy as np
 from collections import defaultdict
 
 unproductive_apps = [
