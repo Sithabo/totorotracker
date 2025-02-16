@@ -17,7 +17,6 @@ export default function Home() {
 
   const [chatData, setChatData] = useState<any | undefined>();
   const [loading, setLoading] = useState(true);
-  
 
   const data = [
     {
@@ -102,8 +101,16 @@ export default function Home() {
     const fetchData = async () => {
       setLoading(true);
       const response = await CallChatAssistant(
-        "im feeling down today, give me some advice to deal with anxiety"
+        `Total Time Spent on Screen
+40 hours
+
+Total Number of Productive Hours
+30 hours
+
+Total Number of Unproductive Hours
+10 hours`
       );
+
       setChatData(response);
       setLoading(false);
     };
@@ -114,7 +121,7 @@ export default function Home() {
     <div>
       <div className="flex flex-col justify-center items-center">
         <Image src={ghibli} alt="Character" width={80} height={80} />
-        <ProgressBar value={percentage} text="Productivity Score" />
+        <ProgressBar value={percentage} text="Todays Productivity Score" />
       </div>
       <div className="my-5 max-w-5xl mx-auto bg-[#7f7f7f] opacity-90 p-5 rounded-lg shadow-lg">
         <Tab
@@ -132,7 +139,12 @@ export default function Home() {
               title: "Analysis",
               content: (
                 <div className="flex flex-col justify-center items-center opacity-85">
-                  <BarStacked data={data} />
+                  <div className="px-5 w-full">
+                    <h1 className="text-2xl font-bold text-center mt-5 mb-4">
+                      Todays Breakdown
+                    </h1>
+                    <BarStacked data={data} />
+                    </div>
 
                   <div className="px-5">
                     <h1 className="text-2xl font-bold text-center mt-5">

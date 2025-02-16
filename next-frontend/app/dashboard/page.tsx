@@ -39,13 +39,13 @@ function Dashboard() {
       animate={{ opacity: 0.85 }}
       transition={{ duration: 0.5 }}
     >
-      <h1 className="font-extrabold text-4xl md:text-7xl text-center">
-        WELCOME TO <span className="text-secondary">TUTURO DASHBOARD!</span>
+      <h1 className="font-extrabold text-4xl md:text-5xl text-center">
+        <span className="text-tertiary">TUTURO DASHBOARD</span>
       </h1>
       <div className="text-center mt-2 mb-5">
         <p className="">
           From here you can{" "}
-          <span className="text-green-500">track your XP count</span> and also{" "}
+          <span className="text-green-500">track your account details</span> and also{" "}
           <span className="text-blue-500">change your passwords</span>.
         </p>
       </div>

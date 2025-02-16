@@ -12,7 +12,7 @@ function Button({ children, className, animated, ...otherProps }: ButtonProps) {
     return (
       <button
         {...otherProps}
-        className={`${className} border-2 border-white rounded-md p-2 px-8 bg-secondary text-white font-bold`}
+        className={`${className} border-2 border-white rounded-md p-2 px-8 text-white font-bold`}
       >
         {children}
       </button>
