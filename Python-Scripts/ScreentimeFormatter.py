@@ -21,6 +21,10 @@ class App:
         return self.name
 
 class Hour:
+    break_time = 0
+    unproductive_time = 0
+    total_screentime = 0
+
     def __init__(self, hour):
         self.hour = hour
         self.apps = []
@@ -29,19 +33,25 @@ class Hour:
         self.apps.append(app)
     
     def getApps():
-        return apps
+        return self.apps
+
+    for app in self.apps:
+        total_screentime += app.getMinutes()
+        if (app.getName() in  unproductive_apps):
+            unproductive_time += app.getMinutes()
+
 
     
 def get_totals(hours_dict):
-    total_time = 0
+    total_screentime = 0
     unproductive_time = 0
-    for hour in hours_dict:
-        for app in hour.apps:
-            total_time += app.getMinutes()
-            if (app.name in unproductive_apps):
-                unproductive_time += app.getMinutes()
+    break_time  = 0
+    productive_time = 0
+    
 
-    return total_time, unproductive_time
+    productive_time = total_screentime - unproductive_time
+
+    return total_time, unproductive_time, break_time
 
 def fetch_data_from_db():
     hours_dict = defaultdict(Hour)
