@@ -50,7 +50,7 @@ async function getAssistantResponse(threadId: string) {
   return assistantMessages;
 }
 
-export async function CallChatAssistant(message: string) {
+export async function CallChatAssistant(message: any) {
   const assistant = await createAssistant();
   const thread = await createThread();
   await addMessageToThread(thread.id, message);

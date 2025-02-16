@@ -17,18 +17,7 @@ export default function Home() {
 
   const [chatData, setChatData] = useState<any | undefined>();
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const response = await CallChatAssistant(
-        "im feeling down today, give me some advice to deal with anxiety"
-      );
-      setChatData(response);
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  
 
   const data = [
     {
@@ -108,6 +97,18 @@ export default function Home() {
       productive: true,
     },
   ];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const response = await CallChatAssistant(
+        "im feeling down today, give me some advice to deal with anxiety"
+      );
+      setChatData(response);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
