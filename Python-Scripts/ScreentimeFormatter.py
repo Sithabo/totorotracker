@@ -55,14 +55,14 @@ def fetch_data_from_db():
     )
     cursor = conn.cursor()
     
-    query = "SELECT hour, app_id, minutes_spent FROM app_usage;"
+    query = "SELECT hour, app_id, time_spent FROM app_usages;"
     cursor.execute(query)
     
     for row in cursor.fetchall():
-        hour, app_name, minutes_spent = row
+        hour, app_name, time_spent = row
         if hour not in hours_dict:
             hours_dict[hour] = Hour(hour)
-        hours_dict[hour].add_app(App(app_name, minutes_spent))
+        hours_dict[hour].add_app(App(app_name, time_spent))
     
     cursor.close()
     conn.close()
