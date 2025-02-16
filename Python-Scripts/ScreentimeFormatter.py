@@ -51,15 +51,16 @@ class Hour:
 
     
 def get_totals(hours_dict):
-    total_screentime = 0
-    unproductive_time = 0
-    break_time  = 0
-    productive_time = 0
-    
+    daily_screentime = 0
+    daily_unproductive_time = 0
+    daily_break_time  = 0
+    for hour in hours_dict:
+        daily_screentime += hour.getTotal_Time()
+        daily_unproductive_time += hour.getUT()
+        daily_break_time  += hour.getBT()
+    daily_productive_time = daily_screentime - daily_unproductive_time
 
-    productive_time = total_screentime - unproductive_time
-
-    return total_time, unproductive_time, break_time
+    return daily_screentime, daily_productive_time, daily_unproductive_time, daily_break_time
 
 def fetch_data_from_db():
     hours_dict = defaultdict(Hour)
