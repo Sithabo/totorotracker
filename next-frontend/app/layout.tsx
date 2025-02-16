@@ -20,12 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="bg-cover bg-center"
+      style={{ backgroundImage: "url('/background.png')" }}
+    >
       <AuthProvider>
-        <body
-          style={{ backgroundImage: "url('/background.png')" }}
-          className={`${playfairDisplay.className} antialiased bg-cover bg-center h-screen`}
-        >
+        <body className={`${playfairDisplay.className} antialiased h-screen`}>
           <Navbar />
           {children}
         </body>

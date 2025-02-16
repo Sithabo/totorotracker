@@ -5,7 +5,7 @@ import { useContext, createContext, useState, useEffect } from "react";
 interface User {
   id: string | null;
   email: string;
-  username: string;
+  fullName: string;
   password: string;
 }
 
@@ -24,7 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>({
     id: null,
     email: "",
-    username: "",
+    fullName: "",
     password: "",
   });
   const [loading, setLoading] = useState(true); // New state to track loading
