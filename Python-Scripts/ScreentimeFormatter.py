@@ -1,4 +1,5 @@
 import psycopg2
+import numpy
 from collections import defaultdict
 
 unproductive_apps = [
@@ -25,6 +26,12 @@ class Hour:
     unproductive_time = 0
     total_screentime = 0
 
+    for app in self.apps:
+        total_screentime += app.getMinutes()
+        if (app.getName() in  unproductive_apps):
+            unproductive_time += app.getMinutes()
+    break_time = 60-total_screentime
+
     def __init__(self, hour):
         self.hour = hour
         self.apps = []
@@ -32,13 +39,14 @@ class Hour:
     def add_app(self, app):
         self.apps.append(app)
     
-    def getApps():
-        return self.apps
+    def getBT():
+        return self.break_time
 
-    for app in self.apps:
-        total_screentime += app.getMinutes()
-        if (app.getName() in  unproductive_apps):
-            unproductive_time += app.getMinutes()
+    def getUT():
+        return self.unproductive_time
+    
+    def getTotal_Time():
+        return self.total_screentime
 
 
     
@@ -82,7 +90,7 @@ def fetch_data_from_db():
 def main():
     hours_data = fetch_data_from_db()
     for hour in hours_data:
-        print(hour)
+        print(hour.getApps())
 
 if __name__ == "__main__":
     main()
