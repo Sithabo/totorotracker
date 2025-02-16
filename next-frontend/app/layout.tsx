@@ -22,11 +22,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="bg-cover bg-center"
+      className="bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/background.png')" }}
     >
       <AuthProvider>
-        <body className={`${playfairDisplay.className} antialiased h-screen`}>
+        <body className={`${playfairDisplay.className} antialiased min-h-screen`}>
           <Navbar />
           {children}
         </body>

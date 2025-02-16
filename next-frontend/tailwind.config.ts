@@ -14,6 +14,8 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: "#98FB98",
+        secondary: "#7f7f7f",
+        tertiary: "#e8e296"
       },
       backgroundImage: {
         "background": "url('/background.png')",
