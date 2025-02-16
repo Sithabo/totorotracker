@@ -1,13 +1,14 @@
 import psycopg2
 import numpy as np
+import random
 from collections import defaultdict
 from flask import Flask, jsonify
 
 unproductive_apps = [
     "facebook", "instagram", "tiktok", "snapchat", "twitter", "youtube", "netflix", "hulu", "disney+", "twitch",
     "reddit", "pinterest", "tumblr", "whatsapp", "telegram", "messenger", "be_real", "clubhouse", "vimeo", "dailymotion",
-    "spotify", "apple_music", "pandora", "soundcloud", "deezer", "audiomack", "amazon_prime_video", "hbo_max", "peacock",
-    "paramount+", "espn", "bleacher_report", "the_chive", "9gag", "funny_or_die", "imgur", "quora", "buzzfeed", "bored_panda",
+    "spotify", "apple_music", "pandora", "soundcloud", "deezer", "audiomack", "amazon_prime video", "hbo_max", "peacock",
+    "paramount+", "espn", "bleacher_report", "the chive", "9gag", "funny_or_die", "imgur", "quora", "buzzfeed", "bored_panda",
     "kickstarter", "patreon", "onlyfans", "grindr", "tinder", "bumble", "okcupid", "hinge", "match", "eharmony", "zoosk"
 ]
 
@@ -16,37 +17,34 @@ class App:
         self.name = name
         self.minutes_spent = minutes_spent
     
-    def getMinutes():
+    def getMinutes(self):
         return self.minutes_spent
     
-    def getName():
+    def getName(self):
         return self.name
 
 class Hour:
-    break_time = 0
-    unproductive_time = 0
-    total_screentime = 0
-
-    for app in self.apps:
-        total_screentime += app.getMinutes()
-        if (app.getName() in  unproductive_apps):
-            unproductive_time += app.getMinutes()
-    break_time = 60-total_screentime
-
     def __init__(self, hour):
         self.hour = hour
         self.apps = []
+        self.break_time = 0
+        self.unproductive_time = 0
+        self.total_screentime = 0
 
     def add_app(self, app):
         self.apps.append(app)
-    
-    def getBT():
+        self.total_screentime += app.getMinutes()
+        if app.getName() in unproductive_apps:
+            self.unproductive_time += app.getMinutes()
+        self.break_time = 60 - self.total_screentime
+
+    def getBT(self):
         return self.break_time
 
-    def getUT():
+    def getUT(self):
         return self.unproductive_time
     
-    def getTotal_Time():
+    def getTotal_Time(self):
         return self.total_screentime
 
 def get_totals(hours_dict):
@@ -129,6 +127,7 @@ def calculate_screen_time_score(
 
 app = Flask(__name__)
 @app.route('/get_integer')
+
 def get_integer():
     return jsonify({"value": 42})  # Sending an integer in JSON format
 
@@ -161,19 +160,46 @@ def fetch_data_from_db():
     
     return list(hours_dict.values())
 
+def test_data():
+    hours_list = []
+
+    # Populate the list with Hour instances and App instances
+    for hour in range(24):
+        hour_instance = Hour(hour)
+        remaining_minutes = random.randint(0,60)
+
+        # Randomly select apps and their usage time
+        while remaining_minutes > 0:
+            app_name = random.choice(unproductive_apps)
+            minutes_spent = random.randint(1, remaining_minutes)
+            app_instance = App(app_name, minutes_spent)
+            hour_instance.add_app(app_instance)
+            remaining_minutes -= minutes_spent
+
+        hours_list.append(hour_instance)
+
+    # Print the details for each hour
+    for hour_instance in hours_list:
+        print(f"Hour {hour_instance.hour}:")
+        print(f"  Total Screen Time: {hour_instance.getTotal_Time()} minutes")
+        print(f"  Unproductive Time: {hour_instance.getUT()} minutes")
+        print(f"  Break Time: {hour_instance.getBT()} minutes")
+        print("  Apps:")
+        for app in hour_instance.apps:
+            print(f"    {app.getName()}: {app.getMinutes()} minutes")
+        print()
+    return hours_list
+
 def main():
-    hours_data = fetch_data_from_db()
-    for hour in hours_data:
-        print(hour.getApps())
-    user_screen_time_before_bed = 1.5  # 1.5 hours
-    user_productive_time = 6           # 6 hours
-    user_unproductive_time = 3         # 3 hours
-    user_break_time = 2                # 2 hours
+    #hours_data = fetch_data_from_db()
+    #for hour in hours_data:
+    #    print(hour.getApps())
+    user_screen_time_before_bed, user_productive_time, user_unproductive_time, user_break_time = get_totals(test_data())          
 
     ideal_screen_time_before_bed = 0   # 0 hours (no screen time before bed)
-    ideal_productive_time = 5          # 5 hours
-    ideal_unproductive_time = 2        # 2 hours
-    ideal_break_time = 3               # 3 hours
+    ideal_productive_time = 300          # 5 hours
+    ideal_unproductive_time = 60        # 2 hours
+    ideal_break_time = 120               # 3 hours
 
     score = calculate_screen_time_score(
         user_screen_time_before_bed,
@@ -185,7 +211,7 @@ def main():
         ideal_unproductive_time,
         ideal_break_time
     )
+    print(get_totals(test_data()))
     print(f"Screen Time Score: {score:.2f}%")
-
 if __name__ == "__main__":
     main()
