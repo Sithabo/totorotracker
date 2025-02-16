@@ -106,7 +106,7 @@ const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
           <p className="">{staticProductivityStats.unproductiveHours} hours</p>
         </div>
       </div>
-      <div className="col-span-2 space-y-2">
+      <div className="col-span-2 space-y-2 *:space-y-2">
         {loading ? <div>Loading...</div> : <Markdown>{chatData}</Markdown>}
       </div>
     </div>

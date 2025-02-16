@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAuth } from "./AuthProvider";
 
 export default function NavBarPanel({
   toggle,
@@ -9,6 +10,8 @@ export default function NavBarPanel({
   toggle: boolean;
   setToggle: (toggle: boolean) => void;
 }) {
+  const { isAuthenticated } = useAuth();
+
   if (toggle)
     return (
       <AnimatePresence>
@@ -25,9 +28,15 @@ export default function NavBarPanel({
             <Link href="/settings" onClick={() => setToggle(false)}>
               <motion.li>Settings</motion.li>
             </Link>
-            <Link href="/login" onClick={() => setToggle(false)}>
-              <motion.li>Login</motion.li>
-            </Link>
+            {isAuthenticated ? (
+              <Link href="/dashboard" onClick={() => setToggle(false)}>
+                <motion.li>Dashboard</motion.li>
+              </Link>
+            ) : (
+              <Link href="/login" onClick={() => setToggle(false)}>
+                <motion.li>Login</motion.li>
+              </Link>
+            )}
           </motion.ul>
         </motion.div>
       </AnimatePresence>
