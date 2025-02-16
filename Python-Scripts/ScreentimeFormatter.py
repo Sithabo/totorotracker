@@ -172,6 +172,7 @@ def main():
         ideal_unproductive_time,
         ideal_break_time
     )
+    print(f"Screen Time Score: {score:.2f}%")
 
 if __name__ == "__main__":
     main()
