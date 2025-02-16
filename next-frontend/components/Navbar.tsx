@@ -48,7 +48,7 @@ function Navbar() {
         >
           <Link href="/settings">
             <motion.li custom={0} variants={staggerVariants}>
-              Settings
+              Relax
             </motion.li>
           </Link>
           {isAuthenticated ? (

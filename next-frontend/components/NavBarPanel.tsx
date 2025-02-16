@@ -26,7 +26,7 @@ export default function NavBarPanel({
               <motion.li>Home</motion.li>
             </Link>
             <Link href="/settings" onClick={() => setToggle(false)}>
-              <motion.li>Settings</motion.li>
+              <motion.li>Relax</motion.li>
             </Link>
             {isAuthenticated ? (
               <Link href="/dashboard" onClick={() => setToggle(false)}>
