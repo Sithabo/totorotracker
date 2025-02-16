@@ -13,9 +13,12 @@ class App:
     def __init__(self, name, minutes_spent):
         self.name = name
         self.minutes_spent = minutes_spent
-
-    def __repr__(self):
-        return f"App(name='{self.name}', minutes_spent={self.minutes_spent})"
+    
+    def getMinutes():
+        return self.minutes_spent
+    
+    def getName():
+        return self.name
 
 class Hour:
     def __init__(self, hour):
@@ -25,22 +28,34 @@ class Hour:
     def add_app(self, app):
         self.apps.append(app)
     
-    def __repr__(self):
-        return f"Hour({self.hour}, apps={self.apps})"
+    def getApps():
+        return apps
+
+    
+def get_totals(hours_dict):
+    total_time = 0
+    unproductive_time = 0
+    for hour in hours_dict:
+        for app in hour.apps:
+            total_time += app.getMinutes()
+            if (app.name in unproductive_apps):
+                unproductive_time += app.getMinutes()
+
+    return total_time, unproductive_time
 
 def fetch_data_from_db():
     hours_dict = defaultdict(Hour)
     
     conn = psycopg2.connect(
-        dbname="your_database",
-        user="your_user",
-        password="your_password",
-        host="your_host",
-        port="your_port"
+        dbname="totorodb",
+        user="postgres",
+        password="postgres",
+        host="127.0.0.1",
+        port="5432"
     )
     cursor = conn.cursor()
     
-    query = "SELECT hour, app_name, minutes_spent FROM app_usage;"
+    query = "SELECT hour, app_id, minutes_spent FROM app_usage;"
     cursor.execute(query)
     
     for row in cursor.fetchall():
