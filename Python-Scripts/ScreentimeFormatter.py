@@ -1,6 +1,7 @@
 import psycopg2
 import numpy as np
 from collections import defaultdict
+from flask import Flask, jsonify
 
 unproductive_apps = [
     "facebook", "instagram", "tiktok", "snapchat", "twitter", "youtube", "netflix", "hulu", "disney+", "twitch",
@@ -121,6 +122,18 @@ def calculate_screen_time_score(
     score = max(0, min(100, score))
 
     return score
+
+
+
+
+
+app = Flask(__name__)
+@app.route('/get_integer')
+def get_integer():
+    return jsonify({"value": 42})  # Sending an integer in JSON format
+
+
+
 
 def fetch_data_from_db():
     hours_dict = defaultdict(Hour)
