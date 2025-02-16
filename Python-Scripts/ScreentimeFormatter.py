@@ -7,8 +7,8 @@ from flask import Flask, jsonify
 unproductive_apps = [
     "facebook", "instagram", "tiktok", "snapchat", "twitter", "youtube", "netflix", "hulu", "disney+", "twitch",
     "reddit", "pinterest", "tumblr", "whatsapp", "telegram", "messenger", "be_real", "clubhouse", "vimeo", "dailymotion",
-    "spotify", "apple music", "pandora", "soundcloud", "deezer", "audiomack", "amazon_prime video", "hbo_max", "peacock",
-    "paramount+", "espn", "bleacher_report", "the chive", "9gag", "funny or die", "imgur", "quora", "buzzfeed", "bored panda",
+    "spotify", "apple_music", "pandora", "soundcloud", "deezer", "audiomack", "amazon_prime video", "hbo_max", "peacock",
+    "paramount+", "espn", "bleacher_report", "the chive", "9gag", "funny_or_die", "imgur", "quora", "buzzfeed", "bored_panda",
     "kickstarter", "patreon", "onlyfans", "grindr", "tinder", "bumble", "okcupid", "hinge", "match", "eharmony", "zoosk"
 ]
 
