@@ -61,7 +61,7 @@ export default function BarStacked({ data }: { data: any }) {
 
   return (
     <>
-      <ResizableBox>
+      <ResizableBox width={"-webkit-fill-available"} height={400}>
         <Chart
           options={{
             data: chartData,

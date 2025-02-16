@@ -5,18 +5,18 @@ import "react-resizable/css/styles.css";
 
 export default function ResizableBox({
   children,
-  width=300,
-  height = 225,
+  width,
+  height = 300,
   resizable = true,
   style = {},
   className = "",
 }) {
   return (
-    <div style={{ marginLeft: 0 }}>
+    <div style={{ marginLeft: 0, width: "-webkit-fill-available" }}>
       <div
         style={{
           display: "inline-block",
-          width: "auto",
+          width: "-webkit-fill-available",
           background: "white",
           padding: ".5rem",
           borderRadius: "0.5rem",
@@ -25,7 +25,7 @@ export default function ResizableBox({
         }}
       >
         {resizable ? (
-          <ReactResizableBox width={width} height={height}>
+          <ReactResizableBox height={300}>
             <div
               style={{
                 width: "100%",
@@ -39,7 +39,7 @@ export default function ResizableBox({
         ) : (
           <div
             style={{
-              width: `${width}px`,
+              width: `-webkit-fill-available`,
               height: `${height}px`,
             }}
             className={className}
