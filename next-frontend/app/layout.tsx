@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/AuthProvider";
+import Navbar from "@/components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfairDisplay = Playfair_Display({
+  weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
@@ -24,11 +21,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <AuthProvider>
+        <body className={`${playfairDisplay.className} antialiased`}>
+          <Navbar />
+          {children}
+        </body>
+      </AuthProvider>
     </html>
   );
 }
