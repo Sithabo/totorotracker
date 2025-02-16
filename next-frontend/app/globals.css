@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 html {
-  @apply bg-primary;
 }
 
 #container {

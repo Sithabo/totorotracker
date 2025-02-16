@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import Image from "next/image";
 import { deleteUser } from "@/api/user";
 import { motion } from "motion/react";
-import image from "@/public/star.png";
+import image from "@/public/Character4.png";
 
 function Dashboard() {
   const { isAuthenticated, setIsAuthenticated, loading, user } = useAuth();
@@ -34,13 +34,13 @@ function Dashboard() {
 
   return (
     <motion.div
-      className="max-w-4xl mx-auto my-4"
+      className="max-w-4xl mx-auto my-4 bg-green-400 opacity-85 rounded-md p-4"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 0.85 }}
       transition={{ duration: 0.5 }}
     >
       <h1 className="font-extrabold text-4xl md:text-7xl text-center">
-        WELCOME TO <span className="text-secondary">TRIVIAD DASHBOARD!</span>
+        WELCOME TO <span className="text-secondary">TUTURO DASHBOARD!</span>
       </h1>
       <div className="text-center mt-2 mb-5">
         <p className="">
@@ -49,28 +49,36 @@ function Dashboard() {
           <span className="text-blue-500">change your passwords</span>.
         </p>
       </div>
-      <div className="w-96 md:w-[500px] bg-foreground p-4 rounded-md mx-auto">
+      <div className="w-96 md:w-[600px] bg-foreground p-4 rounded-md mx-auto">
         <div className="mb-4 text-xl text-white">
           <h2>Stats</h2>
           <div className="grid grid-cols-2 mt-2">
             <div className=" text-secondary font-bold text-xl sm:text-3xl rounded-md">
               <Image src={image} alt="level" />
             </div>
-            <div className="grid grid-cols-2">
-              <div className=" col-span-2 p-2 text-secondary font-bold text-xl sm:text-3xl rounded-md text-center">
-                <h3 className="">Username:</h3>
-                <p className="text-2xl sm:text-4xl">{user.username}</p>
+            <div className="">
+              <div className="flex items-end font-bold text-xl sm:text-3xl rounded-md text-center">
+                <p className="text-2xl flex flex-row whitespace-nowrap">
+                  Welcome:
+                </p>
+                <p className="pl-1 text-2xl flex flex-row whitespace-nowrap">
+                  {" "}
+                  {user.fullName}
+                </p>
               </div>
-              <div className="p-2 text-secondary font-bold text-xl sm:text-3xl rounded-md text-center">
-                <h3 className="">XP</h3>
-                <p className="text-2xl sm:text-4xl">100</p>
-              </div>
-              <div className="p-2 text-secondary font-bold text-xl sm:text-3xl rounded-md text-center">
-                <h3 className="">Story</h3>
-                {/* {Math.min((xp / 100) * 100, 100).toFixed(2) + "%"} */}
-                ah
+              <div className=" rounded-md mt-4">
+                <h3 className="text-xl font-bold text-white">Weekly Summary</h3>
+                <div className="mt-2">
+                  <p className="text-2xl flex flex-row whitespace-nowrap text-green-500">
+                    Productive Hours: 5 hours
+                  </p>
+                  <p className="text-2xl flex flex-row whitespace-nowrap text-red-500 mt-2">
+                    Unproductive Hours: 19 hours
+                  </p>
+                </div>
               </div>
             </div>
+            <div></div>
           </div>
         </div>
         <div>

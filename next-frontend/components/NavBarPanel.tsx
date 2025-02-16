@@ -16,7 +16,7 @@ export default function NavBarPanel({
           initial={{ right: "-100%" }}
           animate={{ right: toggle ? "2%" : "-100%" }}
           exit={{ right: "-100%" }}
-          className="flex justify-between items-center absolute bg-red-50 h-[40vh] rounded-2xl p-24 z-50"
+          className="flex justify-between items-center absolute bg-green-400 h-[40vh] rounded-2xl p-24 z-50"
         >
           <motion.ul>
             <Link href="/" onClick={() => setToggle(false)}>

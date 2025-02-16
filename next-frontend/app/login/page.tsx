@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <div className="w-full h-[80vh] flex items-center justify-center">
-      <div className="max-w-96 md:w-96 bg-foreground p-4 rounded-md">
+      <div className="max-w-96 md:w-96 bg-green-400 opacity-85 p-4 rounded-md">
         <div className="mb-4">
           <Image src={Logo} alt="banner" className="w-10" />
           <h2>Welcome to Triviad</h2>
