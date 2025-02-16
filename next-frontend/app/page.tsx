@@ -5,8 +5,10 @@ export default function Home() {
   const percentage = 66;
 
   return (
-    <div style={{ width: 200, height: 200 }}>
-      <ProgressBar value={percentage} text="Productive" />
+    <div>
+      <div className="flex justify-center items-center">
+        <ProgressBar value={percentage} text="Productivity Score" />
+      </div>
     </div>
   );
 }

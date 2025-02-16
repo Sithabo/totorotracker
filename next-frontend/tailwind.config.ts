@@ -15,6 +15,9 @@ export default {
         foreground: "var(--foreground)",
         primary: "#98FB98",
       },
+      backgroundImage: {
+        "background": "url('/background.png')",
+      }
     },
   },
   plugins: [flowbite.plugin()],

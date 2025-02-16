@@ -22,7 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={`${playfairDisplay.className} antialiased`}>
+        <body
+          style={{ backgroundImage: "url('/background.png')" }}
+          className={`${playfairDisplay.className} antialiased bg-cover bg-center h-screen`}
+        >
           <Navbar />
           {children}
         </body>
