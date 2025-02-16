@@ -161,12 +161,12 @@ def fetch_data_from_db():
     return list(hours_dict.values())
 
 def test_data():
-    hours_dict = defaultdict(lambda: Hour(0))
+    hours_list = []
 
-    # Populate the defaultdict with Hour instances and App instances
+    # Populate the list with Hour instances and App instances
     for hour in range(24):
         hour_instance = Hour(hour)
-        remaining_minutes = 60
+        remaining_minutes = random.randint(0,60)
 
         # Randomly select apps and their usage time
         while remaining_minutes > 0:
@@ -176,11 +176,11 @@ def test_data():
             hour_instance.add_app(app_instance)
             remaining_minutes -= minutes_spent
 
-        hours_dict[hour] = hour_instance
+        hours_list.append(hour_instance)
 
     # Print the details for each hour
-    for hour, hour_instance in hours_dict.items():
-        print(f"Hour {hour}:")
+    for hour_instance in hours_list:
+        print(f"Hour {hour_instance.hour}:")
         print(f"  Total Screen Time: {hour_instance.getTotal_Time()} minutes")
         print(f"  Unproductive Time: {hour_instance.getUT()} minutes")
         print(f"  Break Time: {hour_instance.getBT()} minutes")
@@ -188,20 +188,18 @@ def test_data():
         for app in hour_instance.apps:
             print(f"    {app.getName()}: {app.getMinutes()} minutes")
         print()
+    return hours_list
 
 def main():
     #hours_data = fetch_data_from_db()
     #for hour in hours_data:
     #    print(hour.getApps())
-    user_screen_time_before_bed = 1.5  # 1.5 hours
-    user_productive_time = 6           # 6 hours
-    user_unproductive_time = 3         # 3 hours
-    user_break_time = 2                # 2 hours
+    user_screen_time_before_bed, user_productive_time, user_unproductive_time, user_break_time = get_totals(test_data())          
 
     ideal_screen_time_before_bed = 0   # 0 hours (no screen time before bed)
-    ideal_productive_time = 5          # 5 hours
-    ideal_unproductive_time = 2        # 2 hours
-    ideal_break_time = 3               # 3 hours
+    ideal_productive_time = 300          # 5 hours
+    ideal_unproductive_time = 60        # 2 hours
+    ideal_break_time = 120               # 3 hours
 
     score = calculate_screen_time_score(
         user_screen_time_before_bed,
@@ -213,7 +211,7 @@ def main():
         ideal_unproductive_time,
         ideal_break_time
     )
+    print(get_totals(test_data()))
     print(f"Screen Time Score: {score:.2f}%")
-    test_data()
 if __name__ == "__main__":
     main()
