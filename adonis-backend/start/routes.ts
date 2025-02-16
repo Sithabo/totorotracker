@@ -20,6 +20,9 @@ router
     router.post('/login', [UsersController, 'login'])
     router.post('/register', [UsersController, 'register'])
 
+    // ========================
+    // Usage routes
+    // ========================
     router
       .group(() => {
         router.get('daily/:userId', [UsagesController, 'getDailyUsage'])

@@ -6,10 +6,17 @@ export default class UsagesController {
     const userId = params.userId
     const dailyUsage = await db
       .from('app_usages')
-      .where('user_id', userId)
-      .select('hour', 'time_spent', 'unproductive_time')
-      .groupBy('hour')
-      .orderBy('hour')
+      .innerJoin('apps', 'app_usages.app_id', 'apps.id')
+      .where('app_usages.user_id', userId)
+      .select(
+        'app_usages.hour',
+        'app_usages.time_spent',
+        db.raw(
+          'SUM(CASE WHEN apps.productive = false THEN app_usages.time_spent ELSE 0 END) as unproductive_time'
+        )
+      )
+      .groupBy('app_usages.hour', 'app_usages.time_spent')
+      .orderBy('app_usages.hour')
 
     return dailyUsage
   }
@@ -18,10 +25,13 @@ export default class UsagesController {
     const { userId } = params
     const insights = await db
       .from('app_usages')
-      .where('user_id', userId)
+      .innerJoin('apps', 'app_usages.app_id', 'apps.id')
+      .where('app_usages.user_id', userId)
       .select(
-        db.raw('SUM(time_spent) as total_time'),
-        db.raw('SUM(unproductive_time) as unproductive_time')
+        db.raw('SUM(app_usages.time_spent) as total_time'),
+        db.raw(
+          'SUM(CASE WHEN apps.productive = false THEN app_usages.time_spent ELSE 0 END) as unproductive_time'
+        )
       )
       .first()
 
