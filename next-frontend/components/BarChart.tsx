@@ -59,6 +59,13 @@ export default function BarStacked({ data }: { data: any }) {
     []
   );
 
+  const getSeriesStyle = React.useCallback(
+    (series: { label: string; }) => ({
+      color: series.label === "Productive Time" ? "#4caf50" : "#e8e296", // Green for productive, red for unproductive
+    }),
+    []
+  );
+
   return (
     <>
       <ResizableBox width={"-webkit-fill-available"} height={400}>
@@ -67,6 +74,7 @@ export default function BarStacked({ data }: { data: any }) {
             data: chartData,
             primaryAxis,
             secondaryAxes,
+            getSeriesStyle,
           }}
         />
       </ResizableBox>
