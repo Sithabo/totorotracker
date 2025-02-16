@@ -38,9 +38,9 @@ function Navbar() {
             Tuturo
           </h1>
         </Link>
-        <Link href="/">
+        {/* <Link href="/">
           <Image src={Logo} alt="logo" width={50} height={50} />
-        </Link>
+        </Link> */}
         <motion.ul
           className="space-x-4 font-medium hidden md:flex items-center"
           initial="hidden"
