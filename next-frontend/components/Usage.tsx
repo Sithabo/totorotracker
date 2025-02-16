@@ -42,27 +42,18 @@ const getRandomImage = () => {
   return images[randomIndex];
 };
 
-const generateProductivityStats = () => {
-  const totalHours = 40;
-  const productiveHours = Math.floor(Math.random() * (totalHours - 10)) + 10;
-  const unproductiveHours = totalHours - productiveHours;
-  const productiveScore = Math.round((productiveHours / totalHours) * 100);
-
-  return {
-    totalHours,
-    productiveHours,
-    unproductiveHours,
-    productiveScore,
-  };
+const staticProductivityStats = {
+  totalHours: "40.00",
+  productiveHours: "30.00",
+  unproductiveHours: "10.00",
+  productiveScore: "75.00",
 };
 
 const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
   const [randomImage, setRandomImage] = useState(getRandomImage());
-  const [stats, setStats] = useState(generateProductivityStats());
 
   useEffect(() => {
     setRandomImage(getRandomImage());
-    setStats(generateProductivityStats());
   }, []);
 
   return (
@@ -70,9 +61,9 @@ const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
       <div className="flex flex-col items-center mb-4">
         <Image src={randomImage} alt="Character" className="w-20" />
         <div>
-          {stats.productiveScore >= 75 ? (
+          {parseFloat(staticProductivityStats.productiveScore) >= 75 ? (
             <p className="text-green-200 text-center">You are doing great!</p>
-          ) : stats.productiveScore >= 50 ? (
+          ) : parseFloat(staticProductivityStats.productiveScore) >= 50 ? (
             <p className="text-yellow-200 text-center">You are doing good!</p>
           ) : (
             <p className="text-red-200 text-center">You need to improve!</p>
@@ -83,7 +74,7 @@ const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
               This Week's Productive Score
             </h2>
             <p className="text-4xl font-bold text-green-500">
-              {stats.productiveScore}%
+              {staticProductivityStats.productiveScore}%
             </p>
           </div>
         </div>
@@ -94,7 +85,7 @@ const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
             <CiTimer size={20} className="text-sm  mr-2" />
             <h2 className="text-xl font-bold">Total Time Spent on Screen</h2>
           </div>
-          <p className="text-xl block">{stats.totalHours} hours</p>
+          <p className="text-xl block">{staticProductivityStats.totalHours} hours</p>
         </div>
         <div className="mb-4">
           <div className="flex items-center *:text-tertiary">
@@ -103,7 +94,7 @@ const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
               Total Number of Productive Hours
             </h2>
           </div>
-          <p className="">{stats.productiveHours} hours</p>
+          <p className="">{staticProductivityStats.productiveHours} hours</p>
         </div>
         <div className="mb-4 ">
           <div className="flex items-center *:text-tertiary">
@@ -112,15 +103,11 @@ const Usage: React.FC<UsageProps> = ({ chatData, loading }) => {
               Total Number of Unproductive Hours
             </h2>
           </div>
-          <p className="">{stats.unproductiveHours} hours</p>
+          <p className="">{staticProductivityStats.unproductiveHours} hours</p>
         </div>
       </div>
       <div className="col-span-2 space-y-2">
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          <Markdown>{chatData}</Markdown>
-        )}
+        {loading ? <div>Loading...</div> : <Markdown>{chatData}</Markdown>}
       </div>
     </div>
   );

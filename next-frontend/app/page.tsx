@@ -1,4 +1,5 @@
 "use client";
+
 import { CallChatAssistant } from "@/api/assistant";
 import Analytics, { AppUsage } from "@/components/Analytics";
 import BarStacked from "@/components/BarChart";
@@ -7,6 +8,7 @@ import Tab from "@/components/Tab";
 import Usage from "@/components/Usage";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CiFacebook, CiInstagram, CiTwitter, CiYoutube } from "react-icons/ci";
 import ghibli from "@/public/Character4.png";
 import BeMindfulTip from "@/components/BeMindful";
@@ -19,31 +21,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   const data = [
-    {
-      hour: 9,
-      time_spent: 59,
-      unproductive_time: "0",
-    },
-    {
-      hour: 10,
-      time_spent: 59,
-      unproductive_time: "59",
-    },
-    {
-      hour: 11,
-      time_spent: 59,
-      unproductive_time: "0",
-    },
-    {
-      hour: 12,
-      time_spent: 59,
-      unproductive_time: "59",
-    },
-    {
-      hour: 13,
-      time_spent: 30,
-      unproductive_time: "0",
-    },
+    { hour: 9, time_spent: 59, unproductive_time: "0" },
+    { hour: 10, time_spent: 59, unproductive_time: "59" },
+    { hour: 11, time_spent: 59, unproductive_time: "0" },
+    { hour: 12, time_spent: 59, unproductive_time: "59" },
+    { hour: 13, time_spent: 30, unproductive_time: "0" },
   ];
 
   const sampleApps: AppUsage[] = [
@@ -100,17 +82,16 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const response = await CallChatAssistant(
-        `Total Time Spent on Screen
-40 hours
+      const response = await CallChatAssistant(`
+        Total Time Spent on Screen
+        40 hours
 
-Total Number of Productive Hours
-30 hours
+        Total Number of Productive Hours
+        30 hours
 
-Total Number of Unproductive Hours
-10 hours`
-      );
-
+        Total Number of Unproductive Hours
+        10 hours
+      `);
       setChatData(response);
       setLoading(false);
     };
@@ -121,7 +102,7 @@ Total Number of Unproductive Hours
     <div>
       <div className="flex flex-col justify-center items-center">
         <Image src={ghibli} alt="Character" width={80} height={80} />
-        <ProgressBar value={percentage} text="Todays Productivity Score" />
+        <ProgressBar value={percentage} text="Today's Productivity Score" />
       </div>
       <div className="my-5 max-w-5xl mx-auto bg-[#7f7f7f] opacity-90 p-5 rounded-lg shadow-lg">
         <Tab
@@ -129,44 +110,60 @@ Total Number of Unproductive Hours
             {
               title: "Usage",
               content: (
-                <div>
-                  {/* <Analytics apps={sampleApps} /> */}
-                  <Usage chatData={chatData} loading={loading} />
-                </div>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key="usage"
+                    initial={{ opacity: 0,  }}
+                    animate={{ opacity: 1, }}
+                    exit={{ opacity: 0, }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Usage chatData={chatData} loading={loading} />
+                  </motion.div>
+                </AnimatePresence>
               ),
             },
             {
               title: "Analysis",
               content: (
-                <div className="flex flex-col justify-center items-center opacity-85">
-                  <div className="px-5 w-full">
-                    <h1 className="text-2xl font-bold text-center mt-5 mb-4">
-                      Todays Breakdown
-                    </h1>
-                    <BarStacked data={data} />
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key="analysis"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex flex-col justify-center items-center opacity-85"
+                  >
+                    <div className="px-5 w-full">
+                      <h1 className="text-2xl font-bold text-center mt-5 mb-4">
+                        Today's Breakdown
+                      </h1>
+                      <BarStacked data={data} />
                     </div>
 
-                  <div className="px-5">
-                    <h1 className="text-2xl font-bold text-center mt-5">
-                      Todays App Usage
-                    </h1>
-                    <Analytics apps={sampleApps} />
-                  </div>
+                    <div className="px-5">
+                      <h1 className="text-2xl font-bold text-center mt-5">
+                        Today's App Usage
+                      </h1>
+                      <Analytics apps={sampleApps} />
+                    </div>
 
-                  <div className="px-5">
-                    <h1 className="text-2xl font-bold text-center mt-5">
-                      Be Mindful
-                    </h1>
-                    <BeMindfulTip />
-                  </div>
+                    <div className="px-5">
+                      <h1 className="text-2xl font-bold text-center mt-5">
+                        Be Mindful
+                      </h1>
+                      <BeMindfulTip />
+                    </div>
 
-                  <div className="px-5 w-full">
-                    <h1 className="text-2xl font-bold text-center mt-5">
-                      Resources
-                    </h1>
-                    <ResearchLinks />
-                  </div>
-                </div>
+                    <div className="px-5 w-full">
+                      <h1 className="text-2xl font-bold text-center mt-5">
+                        Resources
+                      </h1>
+                      <ResearchLinks />
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               ),
             },
           ]}

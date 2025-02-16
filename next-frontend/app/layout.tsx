@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
-import { Playfair_Display } from "next/font/google";
+import { Playfair_Display, Lato, Merriweather } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar";
 
 const playfairDisplay = Playfair_Display({
   weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+});
+
+const lato = Merriweather({
+  weight: ["300", "400", "700", "900"],
   subsets: ["latin"],
 });
 

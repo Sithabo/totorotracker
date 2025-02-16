@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const socialMediaTips = [
   {
@@ -34,26 +35,43 @@ const socialMediaTips = [
 ];
 
 const BeMindfulTip = () => {
-  const [tip, setTip] = useState({ tip: "", study: "" });
+  const [tip, setTip] = useState(socialMediaTips[0]);
+  const [tipIndex, setTipIndex] = useState(0);
 
   useEffect(() => {
     getRandomTip();
   }, []);
 
   const getRandomTip = () => {
-    const randomIndex = Math.floor(Math.random() * socialMediaTips.length);
-    setTip(socialMediaTips[randomIndex]);
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * socialMediaTips.length);
+    } while (newIndex === tipIndex); // Ensure a different tip is chosen
+    setTipIndex(newIndex);
+    setTip(socialMediaTips[newIndex]);
   };
 
   return (
     <div className="max-w-md mx-auto my-5 p-5 rounded-lg shadow-lg text-center border-2 border-gray-200">
       <h2 className="text-2xl font-bold mb-4">Be Mindful with Social Media</h2>
-      <p className="text-lg text-gray-800 mb-2">
-        <strong>Tip:</strong> {tip.tip}
-      </p>
-      <p className="text-md text-gray-200 italic mb-4">
-        <strong>Research Insight:</strong> {tip.study}
-      </p>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={tipIndex} // This ensures a new animation when the tip changes
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="text-lg text-gray-800 mb-2">
+            <strong>Tip:</strong> {tip.tip}
+          </p>
+          <p className="text-md text-gray-200 italic mb-4">
+            <strong>Research Insight:</strong> {tip.study}
+          </p>
+        </motion.div>
+      </AnimatePresence>
+
       <button
         onClick={getRandomTip}
         className="mt-2 px-4 py-2 text-lg cursor-pointer border-none rounded bg-blue-500 text-white"

@@ -67,13 +67,13 @@ function Dashboard() {
                 </p>
               </div>
               <div className=" rounded-md mt-4">
-                <h3 className="text-xl font-bold text-white">Weekly Summary</h3>
+                <h3 className="text-xl font-bold text-white">Todays Summary</h3>
                 <div className="mt-2">
                   <p className="text-2xl flex flex-row whitespace-nowrap text-green-500">
-                    Productive Hours: 5 hours
+                    Productive Hours: 2.5 hours
                   </p>
                   <p className="text-2xl flex flex-row whitespace-nowrap text-red-500 mt-2">
-                    Unproductive Hours: 19 hours
+                    Unproductive Hours: 1.28 hours
                   </p>
                 </div>
               </div>
