@@ -191,10 +191,8 @@ def test_data():
     return hours_list
 
 def main():
-    #hours_data = fetch_data_from_db()
-    #for hour in hours_data:
-    #    print(hour.getApps())
-    user_screen_time_before_bed, user_productive_time, user_unproductive_time, user_break_time = get_totals(test_data())          
+    hours_data = fetch_data_from_db()
+    user_screen_time_before_bed, user_productive_time, user_unproductive_time, user_break_time = get_totals(hours_data)          
 
     ideal_screen_time_before_bed = 0   # 0 hours (no screen time before bed)
     ideal_productive_time = 300          # 5 hours
